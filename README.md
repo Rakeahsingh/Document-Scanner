@@ -18,3 +18,4 @@
 - Coil:  Coil is a lightweight image loading library for Android that provides fast, efficient, and customizable image loading capabilities.
 
 ## ScreenShot
+![Screenshot 2024-03-16 131430](https://github.com/Rakeahsingh/Document-Scanner/assets/106171801/78db6ab9-f878-4b1e-bc27-58623a7b24ac)
