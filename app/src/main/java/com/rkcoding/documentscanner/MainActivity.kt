@@ -8,8 +8,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -59,6 +62,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
+
+                    val scope = rememberCoroutineScope()
+
 
                     var imageUri by remember {
                         mutableStateOf<List<Uri>>(emptyList())
@@ -102,21 +108,42 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        Button(onClick = {
-                            scanner.getStartScanIntent(this@MainActivity)
-                                .addOnSuccessListener {
-                                    scannerLauncher.launch(
-                                        IntentSenderRequest.Builder(it).build()
-                                    )
-                                }
-                                .addOnFailureListener{
-                                    Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                        }
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            Button(onClick = {
+                                scanner.getStartScanIntent(this@MainActivity)
+                                    .addOnSuccessListener {
+                                        scannerLauncher.launch(
+                                            IntentSenderRequest.Builder(it).build()
+                                        )
+                                    }
+                                    .addOnFailureListener{
+                                        Toast.makeText(applicationContext, it.message, Toast.LENGTH_SHORT)
+                                            .show()
+                                    }
+                            }
                             ) {
-                            Text(text = "Scan Pdf")
+                                Text(text = "Scan Pdf")
+                            }
+
+
+                            AnimatedVisibility(visible = imageUri != null) {
+
+                                Button(
+                                    onClick = {
+
+                                    }
+                                ) {
+                                    Text(text = "Save file")
+                                }
+
+                            }
+
                         }
+
 
                     }
 
