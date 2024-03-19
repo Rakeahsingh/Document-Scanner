@@ -152,6 +152,7 @@ class MainActivity : ComponentActivity() {
                                 Text(text = "Scan Pdf")
                             }
 
+
                             Spacer(modifier = Modifier.width(16.dp))
 
                             AnimatedVisibility(visible = imageUri.isNotEmpty()) {
@@ -169,7 +170,9 @@ class MainActivity : ComponentActivity() {
 
                                     }
                                 ) {
+
                                     Text(text = "Save pdf")
+
                                 }
                             }
 
